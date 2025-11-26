@@ -29,18 +29,65 @@ const LANDING_LOCATIONS: RestaurantLocation[] = [
   { id: '21', name: 'Lobos Meat & Tapas', lat: 51.5034, lng: -0.0911, description: 'Meat-lovers paradise under the arches', rating: 4.7, category: 'restaurant' },
   { id: '22', name: 'Boqueria', lat: 51.4632, lng: -0.1147, description: 'Lively tapas bar in Brixton', rating: 4.5, category: 'restaurant' },
   
+  // More Restaurants
+  { id: '25', name: 'Barrafina Covent Garden', lat: 51.5119, lng: -0.1228, description: 'Sister restaurant of Dean St location', rating: 4.6, category: 'restaurant' },
+  { id: '26', name: 'Barrafina Borough', lat: 51.5045, lng: -0.0865, description: 'Tapas bar in Borough Market', rating: 4.5, category: 'restaurant' },
+  { id: '27', name: 'El Ganso', lat: 51.5105, lng: -0.1361, description: 'Spanish bistro in Soho', rating: 4.2, category: 'restaurant' },
+  { id: '28', name: 'Donostia', lat: 51.5152, lng: -0.1541, description: 'Basque tapas restaurant in Marylebone', rating: 4.5, category: 'restaurant' },
+  { id: '29', name: 'Cambio de Tercio', lat: 51.4865, lng: -0.1804, description: 'Spanish fine dining in South Kensington', rating: 4.6, category: 'restaurant' },
+  { id: '30', name: 'Tendido Cero', lat: 51.4863, lng: -0.1806, description: 'Tapas bar in South Kensington', rating: 4.4, category: 'restaurant' },
+  { id: '31', name: 'Ibérica Canary Wharf', lat: 51.5050, lng: -0.0215, description: 'Modern Spanish in Canary Wharf', rating: 4.3, category: 'restaurant' },
+  { id: '32', name: 'Ibérica Marylebone', lat: 51.5165, lng: -0.1497, description: 'Spanish restaurant in Marylebone', rating: 4.4, category: 'restaurant' },
+  { id: '33', name: 'Ibérica Victoria', lat: 51.4955, lng: -0.1444, description: 'Tapas restaurant in Victoria', rating: 4.3, category: 'restaurant' },
+  { id: '34', name: 'Copita', lat: 51.5128, lng: -0.1312, description: 'Tapas and wine bar in Soho', rating: 4.3, category: 'restaurant' },
+  { id: '35', name: 'Barrafina Drury Lane', lat: 51.5138, lng: -0.1198, description: 'Tapas counter in Covent Garden', rating: 4.5, category: 'restaurant' },
+  { id: '36', name: 'Lobos Tapas Soho', lat: 51.5125, lng: -0.1325, description: 'Spanish tapas bar in Soho', rating: 4.6, category: 'restaurant' },
+  { id: '37', name: 'El Sur', lat: 51.4855, lng: -0.1915, description: 'Spanish restaurant in Fulham', rating: 4.4, category: 'restaurant' },
+  { id: '38', name: 'Lobos Tapas London Bridge', lat: 51.5037, lng: -0.0875, description: 'Tapas bar near London Bridge', rating: 4.6, category: 'restaurant' },
+  { id: '39', name: 'Casa Brindisa', lat: 51.5051, lng: -0.0901, description: 'Spanish deli and restaurant in Borough', rating: 4.5, category: 'restaurant' },
+  { id: '40', name: 'Brindisa Soho', lat: 51.5142, lng: -0.1368, description: 'Tapas restaurant in Soho', rating: 4.4, category: 'restaurant' },
+  { id: '41', name: 'Salt Yard', lat: 51.5175, lng: -0.1364, description: 'Spanish and Italian tapas in Fitzrovia', rating: 4.4, category: 'restaurant' },
+  { id: '42', name: 'Opera Tavern', lat: 51.5102, lng: -0.1305, description: 'Spanish-Italian tapas in Covent Garden', rating: 4.3, category: 'restaurant' },
+  { id: '43', name: 'Dehesa', lat: 51.5124, lng: -0.1343, description: 'Spanish charcuterie and tapas', rating: 4.3, category: 'restaurant' },
+  { id: '44', name: 'Camino Bankside', lat: 51.5043, lng: -0.0895, description: 'Spanish restaurant in Bankside', rating: 4.3, category: 'restaurant' },
+  { id: '45', name: 'Camino Monument', lat: 51.5100, lng: -0.0855, description: 'Tapas restaurant in Monument', rating: 4.2, category: 'restaurant' },
+  { id: '46', name: 'Camino Blackfriars', lat: 51.5115, lng: -0.1036, description: 'Spanish restaurant near Blackfriars', rating: 4.3, category: 'restaurant' },
+  { id: '47', name: 'La Gamba', lat: 51.4995, lng: -0.1262, description: 'Spanish tapas in Pimlico', rating: 4.2, category: 'restaurant' },
+  { id: '48', name: 'Mar I Terra', lat: 51.4865, lng: -0.1805, description: 'Catalan restaurant in South Kensington', rating: 4.3, category: 'restaurant' },
+  { id: '49', name: 'Donostia Social Club', lat: 51.5153, lng: -0.1540, description: 'Basque social club restaurant', rating: 4.4, category: 'restaurant' },
+  { id: '50', name: 'El Rincon de Soho', lat: 51.5145, lng: -0.1345, description: 'Hidden gem tapas in Soho', rating: 4.4, category: 'restaurant' },
+  
   // Bakeries / Cafes / Delis
-  { id: '13', name: 'R. Garcia And Sons', lat: 51.5176, lng: -0.2064, description: 'The institution: Iconic Spanish deli & supermarket on Portobello', rating: 4.8, category: 'bakery' },
-  { id: '8', name: 'La Maritxu', lat: 51.5136, lng: -0.1654, description: 'Famous Basque Cheesecakes (Connaught Village)', rating: 4.9, category: 'bakery' },
-  { id: '9', name: 'Churros Garcia', lat: 51.5173, lng: -0.2056, description: 'Legendary churros at Portobello Market', rating: 4.8, category: 'bakery' },
-  { id: '23', name: 'Casa Manolo Strand', lat: 51.5103, lng: -0.1221, description: 'Famous for top-tier Jamón Ibérico and deli goods', rating: 4.5, category: 'bakery' },
+  { id: '51', name: 'R. Garcia And Sons', lat: 51.5176, lng: -0.2064, description: 'Iconic Spanish deli & supermarket on Portobello', rating: 4.8, category: 'bakery' },
+  { id: '52', name: 'La Maritxu', lat: 51.5136, lng: -0.1654, description: 'Famous Basque Cheesecakes (Connaught Village)', rating: 4.9, category: 'bakery' },
+  { id: '53', name: 'Churros Garcia', lat: 51.5173, lng: -0.2056, description: 'Legendary churros at Portobello Market', rating: 4.8, category: 'bakery' },
+  { id: '54', name: 'Casa Manolo Strand', lat: 51.5103, lng: -0.1221, description: 'Famous for top-tier Jamón Ibérico and deli goods', rating: 4.5, category: 'bakery' },
+  { id: '55', name: 'Brindisa Delicatessen', lat: 51.5050, lng: -0.0900, description: 'Spanish deli in Borough Market', rating: 4.6, category: 'bakery' },
+  { id: '56', name: 'Casa Manolo', lat: 51.4860, lng: -0.1810, description: 'Spanish deli in South Kensington', rating: 4.4, category: 'bakery' },
+  { id: '57', name: 'Garcia Spanish Shop', lat: 51.5175, lng: -0.2060, description: 'Spanish grocery store on Portobello Road', rating: 4.7, category: 'bakery' },
+  { id: '58', name: 'Iberica Food & Culture', lat: 51.5160, lng: -0.1495, description: 'Spanish deli and culture shop', rating: 4.4, category: 'bakery' },
+  { id: '59', name: 'Lurra Bakery', lat: 51.5155, lng: -0.1605, description: 'Basque pastries and breads', rating: 4.6, category: 'bakery' },
+  { id: '60', name: 'Churros y Más', lat: 51.4635, lng: -0.1145, description: 'Churros and Spanish pastries in Brixton', rating: 4.3, category: 'bakery' },
+  { id: '61', name: 'Spanish Bakery', lat: 51.5055, lng: -0.0910, description: 'Traditional Spanish bakery in Borough', rating: 4.2, category: 'bakery' },
+  { id: '62', name: 'Pan y Vino', lat: 51.5140, lng: -0.1350, description: 'Spanish bread and wine shop', rating: 4.3, category: 'bakery' },
   
   // Pubs / Bars
-  { id: '10', name: "Bradley's Spanish Bar", lat: 51.5165, lng: -0.1305, description: 'London\'s oldest Spanish bar, legendary jukebox', rating: 4.5, category: 'pub' },
-  { id: '11', name: 'Camino King\'s Cross', lat: 51.5309, lng: -0.1232, description: 'Lively bar with late night vibes', rating: 4.3, category: 'pub' },
-  { id: '12', name: 'Bar Kroketa', lat: 51.5144, lng: -0.1347, description: 'Dedicated croqueta bar', rating: 4.4, category: 'pub' },
-  { id: '14', name: 'Centro Galego de Londres', lat: 51.5204, lng: -0.2185, description: 'Authentic Galician social club & bar', rating: 4.4, category: 'pub' },
-  { id: '24', name: 'Chiringuito', lat: 51.5283, lng: -0.0556, description: 'Bethnal Green beach bar vibes with rooftop', rating: 4.3, category: 'pub' },
+  { id: '63', name: "Bradley's Spanish Bar", lat: 51.5165, lng: -0.1305, description: 'London\'s oldest Spanish bar, legendary jukebox', rating: 4.5, category: 'pub' },
+  { id: '64', name: 'Camino King\'s Cross', lat: 51.5309, lng: -0.1232, description: 'Lively bar with late night vibes', rating: 4.3, category: 'pub' },
+  { id: '65', name: 'Bar Kroketa', lat: 51.5144, lng: -0.1347, description: 'Dedicated croqueta bar', rating: 4.4, category: 'pub' },
+  { id: '66', name: 'Centro Galego de Londres', lat: 51.5204, lng: -0.2185, description: 'Authentic Galician social club & bar', rating: 4.4, category: 'pub' },
+  { id: '67', name: 'Chiringuito', lat: 51.5283, lng: -0.0556, description: 'Bethnal Green beach bar vibes with rooftop', rating: 4.3, category: 'pub' },
+  { id: '68', name: 'Bar Pepito', lat: 51.5300, lng: -0.1230, description: 'Spanish sherry bar in King\'s Cross', rating: 4.4, category: 'pub' },
+  { id: '69', name: 'Sabor Bar', lat: 51.5112, lng: -0.1395, description: 'Bar attached to Sabor restaurant', rating: 4.5, category: 'pub' },
+  { id: '70', name: 'Barrafina Bar', lat: 51.5125, lng: -0.1310, description: 'Bar at Barrafina Dean St', rating: 4.6, category: 'pub' },
+  { id: '71', name: 'El Vino', lat: 51.5108, lng: -0.1225, description: 'Spanish wine bar in Covent Garden', rating: 4.2, category: 'pub' },
+  { id: '72', name: 'Bar Tozino', lat: 51.5148, lng: -0.1320, description: 'Spanish bar in Soho', rating: 4.3, category: 'pub' },
+  { id: '73', name: 'La Bodega Bar', lat: 51.5140, lng: -0.1355, description: 'Spanish wine and tapas bar', rating: 4.2, category: 'pub' },
+  { id: '74', name: 'The Spanish Bar', lat: 51.5160, lng: -0.1300, description: 'Traditional Spanish bar in Fitzrovia', rating: 4.3, category: 'pub' },
+  { id: '75', name: 'Copita Bar', lat: 51.5129, lng: -0.1311, description: 'Tapas and wine bar', rating: 4.3, category: 'pub' },
+  { id: '76', name: 'Bar Pintxo', lat: 51.5025, lng: -0.0840, description: 'Basque pintxos bar in Bermondsey', rating: 4.4, category: 'pub' },
+  { id: '77', name: 'Tinto Bar', lat: 51.4864, lng: -0.1807, description: 'Spanish wine bar in South Ken', rating: 4.3, category: 'pub' },
+  { id: '78', name: 'La Cava Bar', lat: 51.4638, lng: -0.1142, description: 'Spanish cava bar in Brixton', rating: 4.2, category: 'pub' },
 ];
 
 const App: React.FC = () => {
@@ -150,14 +197,12 @@ const App: React.FC = () => {
                 />
               )}
               
-              {/* Legend */}
-              {!isMapFullscreen && (
-                <div className="mt-4 flex gap-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm text-sm font-medium text-gray-900">
-                   <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-red"></span> Restaurant</div>
-                   <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-yellow"></span> Bakery/Deli</div>
-                   <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#1F1F1F]"></span> Pub/Bar</div>
-                </div>
-              )}
+              {/* Legend - Always visible */}
+              <div className={`${isMapFullscreen ? 'absolute top-4 left-4 z-30 mt-0' : 'mt-4'} flex gap-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg text-sm font-medium text-gray-900`}>
+                 <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-red"></span> Restaurant</div>
+                 <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-yellow"></span> Bakery/Deli</div>
+                 <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#1F1F1F]"></span> Pub/Bar</div>
+              </div>
               
               {/* Fullscreen Toggle Button */}
               <button

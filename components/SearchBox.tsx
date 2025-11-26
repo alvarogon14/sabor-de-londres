@@ -18,30 +18,30 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, isLoading, class
 
   return (
     <div className={`w-full max-w-2xl relative z-20 px-4 ${className}`}>
-      <div className="bg-white rounded-xl shadow-xl p-2 flex items-center border border-gray-100 transform transition-transform hover:scale-[1.01]">
-        <div className="pl-4 text-gray-400">
-          <Search className="w-5 h-5" />
+      <div className="bg-white rounded-xl shadow-xl p-1.5 flex items-center border border-gray-100 transform transition-transform hover:scale-[1.01]">
+        <div className="pl-3 text-gray-400">
+          <Search className="w-4 h-4" />
         </div>
         <input
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="e.g., Authentic paella in Soho, cheap tapas..."
-          className="flex-1 p-4 outline-none text-gray-700 placeholder-gray-400 bg-transparent text-lg"
+          placeholder="Search Spanish restaurants, tapas, paella..."
+          className="flex-1 p-2.5 outline-none text-gray-700 placeholder-gray-400 bg-transparent text-sm"
           disabled={isLoading}
         />
         <button
           onClick={() => onSearch(value)}
           disabled={isLoading}
           className={`
-            px-6 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2
+            px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2 text-sm
             ${isLoading 
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
               : 'bg-spanish-dark text-white hover:bg-black active:transform active:scale-95 shadow-md hover:shadow-lg'}
           `}
         >
-          {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <span>Explore</span>}
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>Explore</span>}
         </button>
       </div>
       <div className="mt-3 flex gap-2 justify-center flex-wrap">
