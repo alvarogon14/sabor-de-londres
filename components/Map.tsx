@@ -16,24 +16,48 @@ export const Map: React.FC<MapProps> = ({ locations, className }) => {
 
     if (!mapInstance.current) {
       const L = (window as any).L;
-      // Initialize map focused on London
+      // Initialize map focused on London with better quality settings
       const map = L.map(mapRef.current, {
         center: [51.509865, -0.118092], 
-        zoom: 12,
-        scrollWheelZoom: false,
-        zoomControl: false
+        zoom: 13,
+        scrollWheelZoom: true,
+        zoomControl: false,
+        doubleClickZoom: true,
+        boxZoom: true,
+        keyboard: true,
+        dragging: true,
+        zoomAnimation: true,
+        fadeAnimation: true,
+        markerZoomAnimation: true,
+        preferCanvas: false // Use DOM rendering for better quality
       });
       
       L.control.zoom({
         position: 'topright'
       }).addTo(map);
-
-      // Use CartoDB Light basemap for a clean look
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
+      
+      // Improve map rendering quality - use high-quality rendering
+      map.on('tileload', function(e: any) {
+        // Force hardware acceleration and crisp rendering
+        e.tile.style.transform = 'translateZ(0)';
+        e.tile.style.imageRendering = 'auto';
+        e.tile.style.backfaceVisibility = 'hidden';
+      });
+      
+      // Use high-quality OpenStreetMap tiles with retina support for maximum clarity
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abc',
+        maxZoom: 19,
+        zoomOffset: 0,
+        tileSize: 256,
+        detectRetina: true
       }).addTo(map);
+      
+      // Force a refresh when tiles are loaded to ensure clarity
+      map.whenReady(() => {
+        map.invalidateSize();
+      });
 
       mapInstance.current = map;
     }
@@ -82,10 +106,15 @@ export const Map: React.FC<MapProps> = ({ locations, className }) => {
 
     // Fit bounds if we have locations, otherwise stay on London center
     if (hasLocations) {
-      map.fitBounds(bounds, { padding: [80, 80], maxZoom: 15 });
+      map.fitBounds(bounds, { padding: [80, 80], maxZoom: 17 });
     } else {
-        map.setView([51.509865, -0.118092], 12);
+        map.setView([51.509865, -0.118092], 13);
     }
+    
+    // Force map to refresh and ensure tiles are sharp
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
 
   }, [locations]);
 

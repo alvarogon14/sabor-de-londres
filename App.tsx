@@ -6,7 +6,7 @@ import { PlaceCard } from './components/PlaceCard';
 import { Map } from './components/Map';
 import { searchRestaurants } from './services/geminiService';
 import { SearchState, GroundingChunk, RestaurantLocation } from './types';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Maximize2, Minimize2, ChevronUp } from 'lucide-react';
 
 // Curated list of top Spanish places for the landing page map
 const LANDING_LOCATIONS: RestaurantLocation[] = [
@@ -55,6 +55,9 @@ const App: React.FC = () => {
   const [userLocation, setUserLocation] = useState<GeolocationCoordinates | undefined>(undefined);
   const [hasSearched, setHasSearched] = useState(false);
   const [mapLocations, setMapLocations] = useState<RestaurantLocation[]>(LANDING_LOCATIONS);
+  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
+  const [isResultsCollapsed, setIsResultsCollapsed] = useState(false);
+  const [isMapFullscreen, setIsMapFullscreen] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -93,21 +96,43 @@ const App: React.FC = () => {
     }
   };
 
+  const toggleFullscreen = () => {
+    if (!isMapFullscreen) {
+      setIsMapFullscreen(true);
+      setIsHeaderCollapsed(true);
+      setIsResultsCollapsed(true);
+    } else {
+      setIsMapFullscreen(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-[#F9F7F2]">
-      <Header />
+    <div className={`min-h-screen flex flex-col font-sans bg-[#F9F7F2] ${isMapFullscreen ? 'fixed inset-0 z-50' : ''}`}>
+      {!isMapFullscreen && (
+        <Header isCollapsed={isHeaderCollapsed} onToggle={() => setIsHeaderCollapsed(!isHeaderCollapsed)} />
+      )}
       
-      <main className="flex-1 relative flex flex-col">
+      <main className={`flex-1 relative flex flex-col ${isMapFullscreen ? 'h-screen' : ''}`}>
         {/* Hero Section with Map */}
-        <div className={`relative transition-all duration-500 ease-in-out ${hasSearched ? 'h-[40vh]' : 'h-[60vh] md:h-[70vh]'}`}>
+        <div className={`relative transition-all duration-500 ease-in-out ${
+          isMapFullscreen 
+            ? 'fixed inset-0 h-screen w-screen z-40' 
+            : hasSearched && !isResultsCollapsed
+              ? 'h-[40vh]'
+              : hasSearched && isResultsCollapsed
+                ? 'h-[60vh] md:h-[80vh]'
+                : 'h-[60vh] md:h-[70vh]'
+        }`}>
            <Map locations={mapLocations} className="w-full h-full" />
            
-           {/* Overlay Gradient */}
-           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F7F2] pointer-events-none z-10" />
+           {/* Overlay Gradient - hide in fullscreen */}
+           {!isMapFullscreen && (
+             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F7F2] pointer-events-none z-10" />
+           )}
 
            {/* Search Container */}
-           <div className="absolute top-8 left-0 right-0 z-20 flex flex-col items-center">
-              {!hasSearched && (
+           <div className={`absolute ${isMapFullscreen ? 'top-4' : 'top-8'} left-0 right-0 z-20 flex flex-col items-center transition-all`}>
+              {!hasSearched && !isMapFullscreen && (
                  <div className="text-center mb-6 animate-fade-in px-4">
                     <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-2 drop-shadow-md">
                       Find Authentic Spanish Flavors
@@ -117,60 +142,133 @@ const App: React.FC = () => {
                     </p>
                  </div>
               )}
-              <SearchBox 
-                onSearch={handleSearch} 
-                isLoading={state.isLoading} 
-                className="w-full max-w-2xl px-4"
-              />
+              {!isMapFullscreen && (
+                <SearchBox 
+                  onSearch={handleSearch} 
+                  isLoading={state.isLoading} 
+                  className="w-full max-w-2xl px-4"
+                />
+              )}
               
               {/* Legend */}
-              <div className="mt-4 flex gap-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm text-sm font-medium text-gray-900">
-                 <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-red"></span> Restaurant</div>
-                 <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-yellow"></span> Bakery/Deli</div>
-                 <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#1F1F1F]"></span> Pub/Bar</div>
-              </div>
+              {!isMapFullscreen && (
+                <div className="mt-4 flex gap-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm text-sm font-medium text-gray-900">
+                   <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-red"></span> Restaurant</div>
+                   <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-spanish-yellow"></span> Bakery/Deli</div>
+                   <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#1F1F1F]"></span> Pub/Bar</div>
+                </div>
+              )}
+              
+              {/* Fullscreen Toggle Button */}
+              <button
+                onClick={toggleFullscreen}
+                className={`bg-white/90 backdrop-blur-md hover:bg-white px-4 py-2 rounded-full shadow-lg text-sm font-semibold text-gray-900 transition-all flex items-center gap-2 ${
+                  isMapFullscreen ? 'absolute top-4 right-4 z-30 mt-0' : 'mt-4'
+                }`}
+                title={isMapFullscreen ? 'Exit fullscreen' : 'View map fullscreen'}
+              >
+                {isMapFullscreen ? (
+                  <>
+                    <Minimize2 className="w-4 h-4" />
+                    <span>Exit Fullscreen</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="w-4 h-4" />
+                    <span>Fullscreen Map</span>
+                  </>
+                )}
+              </button>
            </div>
         </div>
 
         {/* Results Section */}
-        <div className="container mx-auto px-4 pb-12 relative z-20 -mt-10">
-          {state.error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-8 flex items-center shadow-sm">
-              <AlertCircle className="w-5 h-5 mr-2" />
-              {state.error}
-            </div>
-          )}
+        {!isMapFullscreen && (
+          <div className={`container mx-auto px-4 pb-12 relative z-20 transition-all duration-500 ease-in-out ${
+            isResultsCollapsed ? '-mt-10 opacity-0 pointer-events-none h-0 overflow-hidden' : '-mt-10'
+          }`}>
+            {state.error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-8 flex items-center shadow-sm">
+                <AlertCircle className="w-5 h-5 mr-2" />
+                {state.error}
+              </div>
+            )}
 
-          {(state.responseContent || state.groundingMetadata) && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up">
-              {/* Left Column: Text Response */}
-              <div className="lg:col-span-1 space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-                  <div className="markdown-content text-gray-700">
-                    <ReactMarkdown>{state.responseContent}</ReactMarkdown>
+            {(state.responseContent || state.groundingMetadata) && (
+              <div className="bg-white rounded-t-2xl shadow-2xl border-t border-gray-200 pt-6">
+                {/* Collapse Button */}
+                <div className="flex justify-between items-center mb-6 px-6">
+                  <h2 className="text-2xl font-serif font-bold text-gray-800 flex items-center">
+                    <span className="bg-spanish-red w-2 h-8 mr-3 rounded-full"></span>
+                    Search Results
+                  </h2>
+                  <button
+                    onClick={() => setIsResultsCollapsed(!isResultsCollapsed)}
+                    className="flex items-center gap-2 text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-100 transition-all text-sm font-medium"
+                    title={isResultsCollapsed ? 'Expand results' : 'Collapse results'}
+                  >
+                    {isResultsCollapsed ? (
+                      <>
+                        <span>Show Results</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </>
+                    ) : (
+                      <>
+                        <span>Hide Results</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 px-6 pb-6 animate-slide-up">
+                  {/* Left Column: Text Response */}
+                  <div className="lg:col-span-1 space-y-6">
+                    <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                      <div className="markdown-content text-gray-700">
+                        <ReactMarkdown>{state.responseContent}</ReactMarkdown>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Place Cards */}
+                  <div className="lg:col-span-2">
+                    {state.groundingMetadata?.groundingChunks && (
+                      <>
+                        <h3 className="text-xl font-serif font-bold text-gray-800 mb-6 flex items-center">
+                          <span className="bg-spanish-red w-2 h-8 mr-3 rounded-full"></span>
+                          Recommended Places
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          {state.groundingMetadata.groundingChunks.map((chunk, index) => (
+                            chunk.maps && <PlaceCard key={index} chunk={chunk} index={index} />
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
-
-              {/* Right Column: Place Cards */}
-              <div className="lg:col-span-2">
-                {state.groundingMetadata?.groundingChunks && (
-                  <>
-                    <h3 className="text-2xl font-serif font-bold text-gray-800 mb-6 flex items-center">
-                      <span className="bg-spanish-red w-2 h-8 mr-3 rounded-full"></span>
-                      Recommended Places
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {state.groundingMetadata.groundingChunks.map((chunk, index) => (
-                        chunk.maps && <PlaceCard key={index} chunk={chunk} index={index} />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
+        
+        {/* Collapsed Results Bar */}
+        {!isMapFullscreen && isResultsCollapsed && (state.responseContent || state.groundingMetadata) && (
+          <div className="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 shadow-lg">
+            <button
+              onClick={() => setIsResultsCollapsed(false)}
+              className="w-full px-6 py-3 text-left hover:bg-gray-50 transition-colors flex items-center justify-between group"
+            >
+              <span className="text-gray-700 font-medium group-hover:text-gray-900">Search Results Available</span>
+              <ChevronUp className="w-5 h-5 text-gray-600 group-hover:text-gray-900" />
+            </button>
+          </div>
+        )}
       </main>
     </div>
   );
