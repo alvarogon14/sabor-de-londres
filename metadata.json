@@ -1,0 +1,7 @@
+{
+  "name": "Sabor de Londres",
+  "description": "An AI-powered guide to finding the best Spanish cuisine in London using Gemini's Google Maps Grounding.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO & Social Sharing Tags -->
+    <title>Sabor de Londres - Spanish Restaurants in London</title>
+    <meta name="description" content="An AI-powered guide to finding the best Spanish cuisine in London. Discover authentic tapas, paella, and hidden gems." />
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://google-gemini-sample.web.app/" />
+    <meta property="og:title" content="Sabor de Londres - Spanish Food Guide" />
+    <meta property="og:description" content="Discover the best Spanish restaurants, bakeries, and bars in London with this interactive AI map." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1515443961218-a51367888e4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Sabor de Londres - Spanish Food Guide" />
+    <meta property="twitter:description" content="Discover the best Spanish restaurants, bakeries, and bars in London with this interactive AI map." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1515443961218-a51367888e4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            colors: {
+              spanish: {
+                red: '#C60B1E',
+                yellow: '#FFC400',
+                dark: '#1F1F1F',
+                light: '#F9F7F2',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #F9F7F2;
+      }
+      .markdown-content ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .markdown-content p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      .markdown-content h2, .markdown-content h3 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      /* Map marker styles */
+      .custom-marker-pin {
+        width: 30px;
+        height: 30px;
+        border-radius: 50% 50% 50% 0;
+        background: #C60B1E;
+        position: absolute;
+        transform: rotate(-45deg);
+        left: 50%;
+        top: 50%;
+        margin: -15px 0 0 -15px;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+      }
+      .custom-marker-pin::after {
+        content: '';
+        width: 14px;
+        height: 14px;
+        margin: 8px 0 0 8px;
+        background: #FFC400;
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      /* Bakery Variant (Yellow) */
+      .custom-marker-pin.bakery {
+        background: #FFC400;
+      }
+      .custom-marker-pin.bakery::after {
+        background: #C60B1E;
+      }
+
+      /* Pub Variant (Dark/Black) */
+      .custom-marker-pin.pub {
+        background: #1F1F1F;
+      }
+      .custom-marker-pin.pub::after {
+        background: #F9F7F2;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
