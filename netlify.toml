@@ -2,6 +2,10 @@
   command = "pnpm run build"
   publish = "dist"
 
+[build.environment]
+  PNPM_VERSION = "10.18.1"
+  NPM_FLAGS = "--frozen-lockfile"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

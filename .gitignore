@@ -16,6 +16,10 @@ dist-ssr
 .env.production
 .env.*.local
 
+# Lock files (use pnpm-lock.yaml only)
+package-lock.json
+yarn.lock
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
